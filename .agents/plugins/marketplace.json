@@ -1,0 +1,20 @@
+{
+  "name": "zcode-memory",
+  "interface": {
+    "displayName": "ZCode Memory"
+  },
+  "plugins": [
+    {
+      "name": "zcode-memory",
+      "source": {
+        "source": "local",
+        "path": "./"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

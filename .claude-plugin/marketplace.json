@@ -1,0 +1,19 @@
+{
+  "name": "zcode-memory",
+  "owner": {
+    "name": "Rogers-F"
+  },
+  "metadata": {
+    "description": "Local-first intelligent memory plugins",
+    "version": "0.3.0"
+  },
+  "plugins": [
+    {
+      "name": "zcode-memory",
+      "source": "./",
+      "version": "0.3.0",
+      "description": "Durable Markdown memory for Claude Code",
+      "license": "Apache-2.0"
+    }
+  ]
+}

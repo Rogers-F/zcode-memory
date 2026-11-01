@@ -1,6 +1,6 @@
 {
   "name": "zcode-memory",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Local-first Markdown memory with isolated projects, MCP tools and opt-in extraction",
   "license": "Apache-2.0",
   "interface": {
@@ -12,17 +12,50 @@
   "mcpServers": {
     "zcode_memory": {
       "command": "node",
-      "args": ["./bin/mcp.cjs", "--host", "kimi-cli"],
+      "args": [
+        "./bin/mcp.cjs",
+        "--host",
+        "kimi-cli"
+      ],
       "cwd": "./"
     }
   },
   "hooks": [
-    {"event": "SessionStart", "matcher": "startup|resume", "command": "node ./bin/hook.cjs --host kimi-cli", "timeout": 15},
-    {"event": "UserPromptSubmit", "command": "node ./bin/hook.cjs --host kimi-cli", "timeout": 15},
-    {"event": "Stop", "command": "node ./bin/hook.cjs --host kimi-cli", "timeout": 30},
-    {"event": "SessionEnd", "command": "node ./bin/hook.cjs --host kimi-cli", "timeout": 15},
-    {"event": "PostCompact", "command": "node ./bin/hook.cjs --host kimi-cli", "timeout": 15},
-    {"event": "Interrupt", "command": "node ./bin/hook.cjs --host kimi-cli", "timeout": 15},
-    {"event": "StopFailure", "command": "node ./bin/hook.cjs --host kimi-cli", "timeout": 15}
+    {
+      "event": "SessionStart",
+      "matcher": "startup|resume",
+      "command": "node ./bin/hook.cjs --host kimi-cli",
+      "timeout": 15
+    },
+    {
+      "event": "UserPromptSubmit",
+      "command": "node ./bin/hook.cjs --host kimi-cli",
+      "timeout": 15
+    },
+    {
+      "event": "Stop",
+      "command": "node ./bin/hook.cjs --host kimi-cli",
+      "timeout": 30
+    },
+    {
+      "event": "SessionEnd",
+      "command": "node ./bin/hook.cjs --host kimi-cli",
+      "timeout": 15
+    },
+    {
+      "event": "PostCompact",
+      "command": "node ./bin/hook.cjs --host kimi-cli",
+      "timeout": 15
+    },
+    {
+      "event": "Interrupt",
+      "command": "node ./bin/hook.cjs --host kimi-cli",
+      "timeout": 15
+    },
+    {
+      "event": "StopFailure",
+      "command": "node ./bin/hook.cjs --host kimi-cli",
+      "timeout": 15
+    }
   ]
 }

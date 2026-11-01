@@ -8,7 +8,7 @@ const parts=text=>[{type:'text',text}];
 async function fixture(t){const {root}=await temporary(t);const service=new HostMemory({host:'kimi-cli',home:root,project:'/kimi-project'});t.after(()=>service.close());const hook=(event,extra={})=>handleHook(service,{hook_event_name:event,session_id:'s',client_type:'kimi_code_cli',cwd:'/kimi-project',...extra});return {root,service,hook};}
 test('Kimi manifest uses official flat hooks and safe plugin-root paths, versions agree',async()=>{
  const root=path.resolve(__dirname,'../..'),manifest=JSON.parse(await fs.readFile(path.join(root,'adapters/kimi-cli/kimi.plugin.json'))),pkg=JSON.parse(await fs.readFile(path.join(root,'package.json')));
- assert.equal(manifest.version,pkg.version);assert.equal(manifest.version,'0.2.0');assert.equal(manifest.name,'zcode-memory');
+ assert.equal(manifest.version,pkg.version);assert.equal(manifest.version,require('../../src/version.cjs'));assert.equal(manifest.name,'zcode-memory');
  assert.equal(manifest.systemPromptPath,'./SYSTEM.md');assert.equal(manifest.commands,'./commands/');assert.deepEqual(manifest.mcpServers.zcode_memory,{command:'node',args:['./bin/mcp.cjs','--host','kimi-cli'],cwd:'./'});
  for(const h of manifest.hooks){assert.ok(Object.keys(h).every(k=>['event','matcher','command','timeout'].includes(k)));assert.equal(h.command,'node ./bin/hook.cjs --host kimi-cli');assert.ok(h.timeout>=1&&h.timeout<=600);}
  assert.deepEqual(manifest.hooks.map(h=>h.event),['SessionStart','UserPromptSubmit','Stop','SessionEnd','PostCompact','Interrupt','StopFailure']);

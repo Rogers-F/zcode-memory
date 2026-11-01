@@ -91,6 +91,8 @@ function createPluginRuntime(options = {}) {
   const lifecycle = new AbortController();
   let settings = core.normalizeSettings({});
   let timers = [];
+  const subscriptions = [];
+  let started = false;
   let shuttingDown = false;
   // 上游的扫描节流挂在各自的运行时上（各自的项目）：按项目记
   const dreamScanAt = new Map();
@@ -743,16 +745,27 @@ function createPluginRuntime(options = {}) {
   }
 
   async function start() {
+    if (shuttingDown) throw new Error('stopped plugin runtime must be recreated before enable');
+    if (started) return { storageRoot, settings };
+    started = true;
     await store.ensure();
     await settleStaleStatus();
     await refreshSettings();
     // 召回与提取各走一条轮询：提取或 Dream 再慢也不会挡住召回
     startLoop(processRecallRequests);
     startLoop(processTurnJobs);
-    pi?.events?.on?.('plugin:settingsChanged', () => {
+    function subscribe(event, listener) {
+      const guarded = (...args) => { if (!shuttingDown) listener(...args); };
+      const result = pi?.events?.on?.(event, guarded);
+      subscriptions.push(typeof result === 'function' ? result : () => {
+        if (typeof result?.dispose === 'function') result.dispose();
+        else pi?.events?.off?.(event, guarded);
+      });
+    }
+    subscribe('plugin:settingsChanged', () => {
       void refreshSettings();
     });
-    pi?.events?.on?.('session:modelChanged', (payload) => {
+    subscribe('session:modelChanged', (payload) => {
       if (!payload || typeof payload.sessionId !== 'string' || !payload.sessionId) return;
       void store
         .writeSessionModel(payload.sessionId, {
@@ -769,6 +782,7 @@ function createPluginRuntime(options = {}) {
   function stop() {
     if (shuttingDown) return;
     shuttingDown = true;
+    for (const unsubscribe of subscriptions.splice(0)) { try { unsubscribe(); } catch {} }
     for (const timer of timers) clearInterval(timer);
     timers = [];
     for (const scheduler of schedulers.values()) scheduler.shutdown();

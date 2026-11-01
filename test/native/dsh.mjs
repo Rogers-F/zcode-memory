@@ -3,6 +3,16 @@ import {test} from 'node:test';
 import {readFile} from 'node:fs/promises';
 import path from 'node:path';
 import {createHarness,isAgentLoopRequest} from '../../adapters/dsh/test/integration/runtime.mjs';
+test('installed DSH: native Cordis disable/re-enable/replacement removes effects and retains facts/settings',async()=>{
+ const h=await createHarness();try{
+  let loaded=await h.memory({enabled:true,extractionEnabled:false}),a=await h.agent();const root=loaded.controller.inspect(a.id).rootDir;
+  const {default:core}=await import('../../adapters/dsh/shared.cjs'),store=new core.MemoryStore({root,host:'dsh',project:h.workspace});await store.save({path:'lifecycle.md',body:'项目发布先 staging'});await store.configure({autoExtract:false,recall:{maxChars:3456}});
+  assert.ok(h.ctx.tools.schemas().some(t=>t.name==='memory_save'));h.model.respond=()=>({text:'启用时正常回答'});await h.turn(a,'项目发布流程');assert.match(JSON.stringify(h.model.requests.filter(isAgentLoopRequest).at(-1).messages),/lifecycle.md/);const config={enabled:true,extractionEnabled:false,semanticRecallEnabled:false};await loaded.unload();assert.equal(h.ctx.tools.schemas().some(t=>t.name==='memory_save'),false);
+  h.model.respond=()=>({text:'禁用时正常回答'});const requestCount=h.model.requests.length;await h.turn(a,'禁用后的新请求：项目发布流程');assert.ok(h.model.requests.length>requestCount,JSON.stringify(a.session.log.slice(-12)));assert.doesNotMatch(JSON.stringify(h.model.requests.at(-1).messages),/zcode-memory-background|lifecycle.md/);
+  for(const action of ['enable','update']){loaded=await h.memory(config);assert.ok(h.ctx.tools.schemas().some(t=>t.name==='memory_save'),action);const session=await h.agent();await h.turn(session,'项目发布流程');assert.match(JSON.stringify(h.model.requests.filter(isAgentLoopRequest).at(-1).messages),/lifecycle.md/);assert.equal(loaded.controller.getSettings().extractionEnabled,false);assert.equal((await store.catalog()).settings.recall.maxChars,3456);await loaded.unload();assert.equal(h.ctx.tools.schemas().some(t=>t.name==='memory_save'),false);}
+  assert.match((await store.read('lifecycle.md')).body,/staging/,'remove retains separate storage');
+ }finally{await h.close();}
+});
 test('installed DSH: read-only policy rejects the new native memory_save tool',async()=>{
   const h=await createHarness({sandboxMode:'read-only'});try{
     const {controller}=await h.memory({enabled:true});const a=await h.agent();let first=true;

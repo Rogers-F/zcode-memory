@@ -7,12 +7,16 @@ const installed=process.env.PI_CLI_PACKAGE??path.join(publicNodeRoot,'@earendil-
 const entry=path.join(installed,'dist/bundle/cli.js');if(!fs.existsSync(entry)){console.log('Pi CLI unavailable');process.exit(2);}
 const work=fs.mkdtempSync(path.join(base,'run-')),project=path.join(work,'project'),home=path.join(work,'home'),data=path.join(home,'.zcode-memory');
 for(const directory of [project,home,path.join(work,'tmp')])fs.mkdirSync(directory,{recursive:true});
-const env={PATH:process.env.PATH,HOME:home,USERPROFILE:home,TMPDIR:path.join(work,'tmp'),TMP:path.join(work,'tmp'),TEMP:path.join(work,'tmp'),PI_CODING_AGENT_DIR:path.join(home,'.pi/agent'),JITI_CACHE_DIR:path.join(work,'jiti'),NO_COLOR:'1'};
+const env={PATH:process.env.PATH,HOME:home,USERPROFILE:home,TMPDIR:path.join(work,'tmp'),TMP:path.join(work,'tmp'),TEMP:path.join(work,'tmp'),PI_CODING_AGENT_DIR:path.join(home,'.pi/agent'),CLAUDE_CONFIG_DIR:path.join(home,'.claude'),CODEX_HOME:path.join(home,'.codex'),KIMI_CODE_HOME:path.join(home,'.kimi-code'),JITI_CACHE_DIR:path.join(work,'jiti'),PI_OFFLINE:'1',PI_TELEMETRY:'0',NO_COLOR:'1'};
 const adapter=process.env.ZCODE_MEMORY_PI_EXTENSION??(fs.existsSync(path.join(root,'dist/npm/package/adapters/pi-cli/index.ts'))?path.join(root,'dist/npm/package/adapters/pi-cli/index.ts'):path.join(root,'adapters/pi-cli/index.ts'));
 const steps=[];
+const installs=[];
+function install(source){const args=[entry,'install',source],r=spawnSync(process.execPath,args,{cwd:project,env,encoding:'utf8',timeout:30000});assert.equal(r.status,0,r.stderr);installs.push({source,exit:r.status});}
+const providerPackage=path.join(work,'scripted-provider');fs.mkdirSync(providerPackage);fs.copyFileSync(path.join(root,'test/fixtures/pi-scripted-provider.ts'),path.join(providerPackage,'provider.ts'));fs.writeFileSync(path.join(providerPackage,'package.json'),JSON.stringify({name:'zcode-memory-test-provider',pi:{extensions:['provider.ts']}}));
+install(path.resolve(path.dirname(adapter),'../..'));install(providerPackage);
 function run(mode,prompt,mcp=false){
   const capture=path.join(work,mode+'-requests.jsonl');fs.writeFileSync(capture,'');
-  const args=[entry,'--mode','json','--provider','memory-scripted','--model','controlled','--no-session','-e',adapter,'-e',path.join(root,'test/fixtures/pi-scripted-provider.ts'),'-p',prompt];
+  const args=[entry,'--offline','--mode','json','--provider','memory-scripted','--model','controlled','--no-session','-p',prompt];
   const r=spawnSync(process.execPath,args,{cwd:project,env:{...env,ZCODE_MEMORY_CAPTURE:capture,ZCODE_MEMORY_SCRIPT_MODE:mode,...(mcp?{ZCODE_MEMORY_PI_MCP:'1'}:{})},encoding:'utf8',timeout:45000,maxBuffer:8*1024*1024});
   fs.writeFileSync(path.join(work,mode+'-stdout.jsonl'),r.stdout??'');fs.writeFileSync(path.join(work,mode+'-stderr.log'),r.stderr??'');
   assert.equal(r.status,0,`${mode}: ${r.error?.message??r.stderr}`);
@@ -23,9 +27,9 @@ function run(mode,prompt,mcp=false){
 async function stickyRpc(service){
  const mode='sticky-rpc',capture=path.join(work,mode+'-requests.jsonl'),trace=path.join(work,mode+'-events.jsonl');for(const f of [capture,trace])fs.writeFileSync(f,'');
  // Native manual compaction needs an eligible cut point in this tiny synthetic session.
- fs.mkdirSync(env.PI_CODING_AGENT_DIR,{recursive:true});fs.writeFileSync(path.join(env.PI_CODING_AGENT_DIR,'settings.json'),JSON.stringify({compaction:{enabled:false,keepRecentTokens:1,reserveTokens:256}}));
+ fs.mkdirSync(env.PI_CODING_AGENT_DIR,{recursive:true});const settingsFile=path.join(env.PI_CODING_AGENT_DIR,'settings.json'),settings=JSON.parse(fs.readFileSync(settingsFile));fs.writeFileSync(settingsFile,JSON.stringify({...settings,compaction:{enabled:false,keepRecentTokens:1,reserveTokens:256}}));
  await service.store().save({path:'sticky-native.md',description:'项目发布流程',body:'项目发布流程先 staging 再审批。BODY-ONLY-NATIVE'});
- const child=spawn(process.execPath,[entry,'--mode','rpc','--provider','memory-scripted','--model','controlled','--no-session','-e',adapter,'-e',path.join(root,'test/fixtures/pi-scripted-provider.ts')],{cwd:project,env:{...env,ZCODE_MEMORY_CAPTURE:capture,ZCODE_MEMORY_EVENTS_CAPTURE:trace,ZCODE_MEMORY_SCRIPT_MODE:mode},stdio:['pipe','pipe','pipe']});
+ const child=spawn(process.execPath,[entry,'--offline','--mode','rpc','--provider','memory-scripted','--model','controlled','--no-session'],{cwd:project,env:{...env,ZCODE_MEMORY_CAPTURE:capture,ZCODE_MEMORY_EVENTS_CAPTURE:trace,ZCODE_MEMORY_SCRIPT_MODE:mode},stdio:['pipe','pipe','pipe']});
  let buffer='',stdout='',stderr='',id=0,settled=0;const pending=new Map(),settleWaiters=new Set();
  child.stderr.on('data',s=>stderr+=s);child.stdout.on('data',s=>{stdout+=s;buffer+=s;while(buffer.includes('\n')){const at=buffer.indexOf('\n'),line=buffer.slice(0,at);buffer=buffer.slice(at+1);let m;try{m=JSON.parse(line);}catch{continue;}if(m.type==='response')pending.get(m.id)?.(m);if(m.type==='agent_settled'){settled++;for(const f of settleWaiters)f();}}});
  const rpc=(type,args={})=>new Promise((resolve,reject)=>{const next=String(++id),timer=setTimeout(()=>{pending.delete(next);reject(Error(`${type} timeout: ${stderr}`));},30000);pending.set(next,m=>{clearTimeout(timer);pending.delete(next);m.success?resolve(m.data):reject(Error(m.error));});child.stdin.write(JSON.stringify({id:next,type,...args})+'\n');});
@@ -58,7 +62,7 @@ async function stickyRpc(service){
     await assert.rejects(service.tool('memory_read',{path:'native-pi.md'}),{code:'NOT_FOUND'});
     assert.equal((await service.tool('memory_stats')).stats.modelCalls,0,'local extraction must not invoke an auxiliary model');
     await service.tool('memory_settings',{autoExtract:false});await stickyRpc(service);
-    const report={status:'passed',version:JSON.parse(fs.readFileSync(path.join(installed,'package.json'))).version,node:process.version,steps,adapter,work};
+    const report={status:'passed',version:JSON.parse(fs.readFileSync(path.join(installed,'package.json'))).version,node:process.version,steps,adapter,work,installs,loading:'native persistent pi install; no temporary -e flags'};
     fs.writeFileSync(path.join(base,'report.json'),JSON.stringify(report,null,2));console.log(JSON.stringify(report,null,2));
   }finally{await service.close();}
 })().catch(error=>{fs.writeFileSync(path.join(base,'report.json'),JSON.stringify({status:'failed',error:error.message,steps,work},null,2));console.error(error);process.exitCode=1;});

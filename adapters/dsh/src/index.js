@@ -50,6 +50,10 @@ export async function apply(ctx,config){
   function closeState(state){
     if(!state||state.closed)return;
     state.closed=true;state.lifecycle?.abort();state.engine?.shutdown();void state.service?.close();
+    // AgentLoop persists request overrides on the session surface. Removing the
+    // pre-step hook alone leaves its last synthetic attachment visible. Retire
+    // only our own surface entries on disable/unload; retain the audit history.
+    try{clearPriorIndex(state.agent);}catch(error){report(error);}
     for(const stop of state.disposers.splice(0))stop();
     // Retain an old generation only while cancelled work is settling, not for the profile's whole lifetime.
     void Promise.resolve(state.engine?.drain()).catch(report).finally(()=>{
@@ -134,7 +138,10 @@ export async function apply(ctx,config){
     const readOnly=ctx.get('sandboxPolicy')?.resolve({session:agent.session})?.mode==='read-only';state.service.options.readOnly=readOnly;for(const store of state.service.stores.values())store.readOnly=readOnly;
     clearPriorIndex(agent);
     const clean=decision.messages.filter(m=>!['zcode-memory-unified-index','zcode-memory-unified-recall','zcode-memory-unified-update'].includes(m.source?.kind));
-    const injection=await state.service.injection({session:agent.session.id,query,includeIndex:!query,signal,turnId:queryMessage?.id});
+    let injection;
+    try{injection=await state.service.injection({session:agent.session.id,query,includeIndex:!query,signal:AbortSignal.any([signal,state.lifecycle.signal]),turnId:queryMessage?.id});}
+    catch(error){if(state.closed||disposed)return {...decision,messages:clean};throw error;}
+    if(state.closed||disposed)return {...decision,messages:clean};
     state.events={...(state.events??{}),preStep:{at:new Date().toISOString(),...injection.diagnostics}};await state.service.event('dsh:agent/pre-step',injection.diagnostics);
     return injection.text?{...decision,messages:[...clean,createUserMessage({source:{kind:'zcode-memory-unified-recall'},content:[{type:'text',text:injection.text}]})]}:{...decision,messages:clean};
   });

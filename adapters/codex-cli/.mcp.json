@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "zcode_memory": {
+      "command": "node",
+      "args": [
+        "${PLUGIN_ROOT}/bin/mcp.cjs",
+        "--host",
+        "codex-cli"
+      ]
+    }
+  }
+}

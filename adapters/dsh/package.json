@@ -1,6 +1,6 @@
 {
   "name": "@local/zcode-memory-dsh",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Unified Markdown memory for DSH with native tools, guarded extraction and the retained settings viewer",
   "type": "module",
   "license": "Apache-2.0",

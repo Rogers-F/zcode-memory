@@ -10,7 +10,7 @@ Reference snapshots (read-only during this implementation):
 
 Modifications in this unified project (2026): shared Markdown/YAML core; atomic journaled storage and cross-process bakery locking; semantic/hash duplicate control, conflicts and restorable revisions; Chinese-aware incremental extraction and cancellation; budgeted BM25 and selective body reads; explicit copy migration/exchange; core integration into desktop/DSH mutations; opt-in defaults; new manual panel controls and unified native tools; Claude/Codex MCP/hooks and Pi native extension; isolated scripted-model tests and independent packaging. These changes intentionally diverge from old source-alignment matrices. Upstream tests/documents under copied adapters are historical references unless explicitly run by the root test scripts.
 
-Dependencies retain their own license texts in distributed node_modules:
+Dependencies retain their own license texts in distributed node_modules. The unchanged CommonJS runtime of yaml 2.9.0 is also vendored under vendor/yaml (ISC, LICENSE included) so Git marketplace installs need no npm install or user credentials:
 
 - yaml 2.9.0: ISC; package LICENSE included. The core uses its YAML document API to preserve unknown legacy fields.
 - marked 18.0.11: MIT (runtime DSH Markdown parser). The retained prebuilt DSH browser bundle separately contains marked 16.4.2 with its existing notice at adapters/dsh/assets/licenses/marked-LICENSE.md.

@@ -1,18 +1,24 @@
-# Kimi CLI adapter — v0.2.0
+# Kimi CLI adapter — v0.3.0
 
-Build with `npm run pack`. Install the complete `dist/kimi-cli` directory in Kimi:
+Use Kimi's native user-level plugin manager with the published versioned Release URL:
 
 ```text
-/plugins install /absolute/zcode-memory/dist/kimi-cli
+/plugins install https://github.com/Rogers-F/zcode-memory/releases/download/v0.3.0/zcode-memory-kimi-cli-0.3.0.zip
+/plugins list
+/plugins disable zcode-memory
+/plugins enable zcode-memory
+/plugins info zcode-memory
 /reload
 # or start /new
 ```
 
-For a local ZIP, first unpack it in a terminal, then pass the extracted directory
+To update, choose Update in the native `/plugins` manager (the catalog at `https://raw.githubusercontent.com/Rogers-F/zcode-memory/main/marketplaces/kimi.json` advertises the current version), or explicitly install the next versioned Release URL. Reinstalling the same ID updates its managed copy and preserves enabled/capability choices. `/plugins remove zcode-memory` removes the plugin, retaining independent facts/settings. Apply enable/disable/update with `/reload` or `/new`; disabled plugins supply no MCP/hooks or instructions to new sessions. Native permissions and hook opt-in remain under user control. These release assets are not published by local builds.
+
+Offline fallback: build with `npm run pack` and install the complete `dist/kimi-cli` directory. For a local ZIP, first unpack it in a terminal, then pass the extracted directory
 to Kimi (local plugin installation accepts directories):
 
 ```sh
-unzip /absolute/zcode-memory/artifacts/zcode-memory-kimi-cli-0.2.0.zip -d /absolute/kimi-memory-plugin
+unzip /absolute/zcode-memory/artifacts/zcode-memory-kimi-cli-0.3.0.zip -d /absolute/kimi-memory-plugin
 ```
 
 ```text
@@ -55,8 +61,7 @@ attachments and source-marked synthetic content are ignored. TurnStarted is
 observation-only and Stop never interprets its own prompt field as new user input.
 Interrupt/StopFailure/SessionEnd discard pending input. Hook timeout/crash is
 fail-open; journal recovery and content hashes make retries idempotent, but hook
-delivery is not an exactly-once acknowledgement from the host. Plugins/hooks
-disabled means manual MCP only. No subagent automatic extraction is claimed.
+delivery is not an exactly-once acknowledgement from the host. With only hooks disabled, enabled MCP remains manual; disabling the whole plugin removes its MCP, hooks and instructions after reload. No subagent automatic extraction is claimed.
 
 Semantic recall is independently off. Without an explicit model.recall bridge,
 `semanticAvailable:false`; this adapter does not reuse Kimi's logged-in model.
@@ -68,6 +73,4 @@ Official contracts: [plugins](https://www.kimi.com/code/docs/en/kimi-code-cli/cu
 [MCP](https://www.kimi.com/code/docs/en/kimi-code-cli/customization/mcp.html).
 Native checks use isolated HOME/KIMI_CODE_HOME and no model invocation; see the
 root README and verification evidence for the measured scope and limitations.
-Installed Kimi 2.4.1 passes version/help and ACP initialize. Its isolated
-session/new returns Authentication required, so native install/info were not
-executed. No real credentials were loaded to pass that boundary.
+Installed Kimi 2.4.1 passes version/help and ACP initialize. Standard isolated ACP session/new requires authentication, and ACP does not expose `/plugins`. The separate lifecycle check drives the native TUI with a synthetic unused provider and explicitly confirms our own fixture's normal trust dialog. This sandbox's unmodified fs.watch returns EMFILE; when needed the checker records that failure and uses a test-only watcher stub for manager checks. That proves manager persistence, not normal filesystem watching or native model/hook execution. No real credentials are loaded. HTTPS release downloads remain a publication/network boundary.

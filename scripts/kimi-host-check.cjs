@@ -22,7 +22,7 @@ async function checkKimi(root,base){
  const request=(method,params)=>new Promise((resolve,reject)=>{const next=++id,timer=setTimeout(()=>{waiting.delete(next);reject(new Error(`Kimi ${method} timeout`));},15000);waiting.set(next,msg=>{clearTimeout(timer);msg.error?reject(new Error(JSON.stringify(msg.error))):resolve(msg.result);});proc.stdin.write(JSON.stringify({jsonrpc:'2.0',id:next,method,params})+'\n');});
  proc.on('error',error=>{errors+=error.message;});
  try{
-   report.initialize=await request('initialize',{protocolVersion:1,clientInfo:{name:'zcode-memory-native-check',version:'0.2.0'},clientCapabilities:{fs:{readTextFile:false,writeTextFile:false},terminal:false}});
+   report.initialize=await request('initialize',{protocolVersion:1,clientInfo:{name:'zcode-memory-native-check',version:require('../src/version.cjs')},clientCapabilities:{fs:{readTextFile:false,writeTextFile:false},terminal:false}});
    const session=await request('session/new',{cwd:path.join(work,'project'),mcpServers:[]});report.session=session;
    const commands=events.flatMap(e=>e.params?.update?.availableCommands??[]);
    if(!commands.some(c=>c.name==='plugins'))throw new Error('ACP did not advertise the plugins control command; no prompt submitted');

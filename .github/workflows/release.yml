@@ -1,0 +1,28 @@
+name: Package release
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22.23.2
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: npm run verify
+      - name: Checksums
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          sha256sum artifacts/*"$VERSION".tgz artifacts/*"$VERSION".zip artifacts/*"$VERSION".piplug > artifacts/SHA256SUMS
+      - uses: actions/upload-artifact@v4
+        with:
+          name: reviewed-release-packages
+          path: |
+            artifacts/*.tgz
+            artifacts/*.zip
+            artifacts/*.piplug
+            artifacts/SHA256SUMS

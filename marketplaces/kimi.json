@@ -1,0 +1,11 @@
+{
+  "version": "2",
+  "plugins": [
+    {
+      "id": "zcode-memory",
+      "displayName": "ZCode Memory",
+      "source": "https://github.com/Rogers-F/zcode-memory/releases/download/v0.3.0/zcode-memory-kimi-cli-0.3.0.zip",
+      "version": "0.3.0"
+    }
+  ]
+}

@@ -1,5 +1,7 @@
 'use strict';
-const YAML=require('yaml');
+// Git marketplace installs do not run npm. The checked-in, ISC-licensed copy
+// keeps that formal source install offline; normal packages use their dependency.
+let YAML;try{YAML=require('yaml');}catch(error){if(error.code!=='MODULE_NOT_FOUND')throw error;YAML=require('../../vendor/yaml/lib/index.js');}
 const {hash,normalize,truncate}=require('./text.cjs');
 const TYPES=['user','feedback','project','reference'];
 function parseFact(content) {
