@@ -1,7 +1,7 @@
 {
   "name": "zcode-memory",
-  "version": "0.1.0",
-  "description": "Portable, local-first Markdown memory with five host adapters",
+  "version": "0.2.0",
+  "description": "Portable, local-first Markdown memory with six host adapters",
   "license": "Apache-2.0",
   "type": "commonjs",
   "main": "src/core/index.cjs",

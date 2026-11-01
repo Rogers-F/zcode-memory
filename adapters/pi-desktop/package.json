@@ -1,6 +1,6 @@
 {
   "name": "pi-zcode-memory",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "description": "PI-Desktop plugin: ZCode long-term memory port with sourced, toggleable improvements",
   "license": "Apache-2.0",

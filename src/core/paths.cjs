@@ -3,7 +3,7 @@ const path=require('node:path');const fs=require('node:fs/promises');const {cons
 const {hash}=require('./text.cjs');
 const fail=(code,message)=>Object.assign(new Error(message),{code});
 const abort=signal=>signal?.throwIfAborted();
-const HOSTS=['pi-desktop','dsh','claude-code','codex-cli','pi-cli'];
+const HOSTS=['pi-desktop','dsh','claude-code','codex-cli','pi-cli','kimi-cli'];
 function slug(s){return String(s).normalize('NFKC').replace(/[^a-zA-Z0-9\p{Script=Han}_.-]+/gu,'-').replace(/^[-.]+|[-.]+$/g,'').slice(0,60)||'memory';}
 function identity({project=process.cwd(),workspaceIdentity,platform=process.platform}) {const p=(platform==='win32'?path.win32:path).resolve(project);const key=workspaceIdentity?.trim()||(platform==='win32'?p.toLowerCase():p);return {path:p,key,id:`${workspaceIdentity?'project':slug(path.basename(p)).toLowerCase()}-${hash(key).slice(0,16)}`};}
 function storePath({home,host,project,workspaceIdentity,scope='project',agent,agentScope='project'}) {

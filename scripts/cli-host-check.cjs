@@ -18,7 +18,7 @@ async function codexHooks(){
   proc.stdout.on('data',b=>{buffer+=b;let newline;while((newline=buffer.indexOf('\n'))>=0){const line=buffer.slice(0,newline);buffer=buffer.slice(newline+1);let value;try{value=JSON.parse(line);}catch{continue;}if(value.id!==undefined&&waiting.has(value.id)){const pending=waiting.get(value.id);waiting.delete(value.id);clearTimeout(pending.timer);value.error?pending.reject(new Error(JSON.stringify(value.error))):pending.resolve(value.result);}else notifications.push(value);}});
   function request(method,params){return new Promise((resolve,reject)=>{const id=next++,timer=setTimeout(()=>{waiting.delete(id);reject(new Error(`Codex ${method} timeout`));},15000);waiting.set(id,{resolve,reject,timer});proc.stdin.write(JSON.stringify({id,method,params})+'\n');});}
   try{
-    const initialized=await request('initialize',{clientInfo:{name:'zcode-memory-native-check',version:'0.1.0'},capabilities:{experimentalApi:true}});
+    const initialized=await request('initialize',{clientInfo:{name:'zcode-memory-native-check',version:'0.2.0'},capabilities:{experimentalApi:true}});
     proc.stdin.write(JSON.stringify({method:'initialized',params:{}})+'\n');
     const hooks=await request('hooks/list',{cwds:[path.join(work,'project')]});
     const records=hooks.data??[],events=new Set(records.flatMap(value=>value.hooks??[]).map(hook=>hook.eventName));
@@ -35,6 +35,7 @@ async function codexHooks(){
     report.claude={directory,status:checked.status===0?'manifest-validated':'validation-failed',exit:checked.status,output:(checked.stdout??'')+(checked.stderr??'')};
   }else report.claude={status:'unavailable'};
   if(fs.existsSync(codex))report.codex=await codexHooks();else report.codex={status:'unavailable'};
+  report.kimi=await require('./kimi-host-check.cjs').checkKimi(root,work);
   fs.writeFileSync(path.join(work,'report.json'),JSON.stringify(report,null,2));console.log(JSON.stringify(report,null,2));
   if(report.claude.exit||report.codex.status==='failed')process.exitCode=1;
 })().catch(error=>{console.error(error);process.exitCode=1;});
