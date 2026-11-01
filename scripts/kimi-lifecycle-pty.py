@@ -14,6 +14,8 @@ import termios
 import time
 
 executable, old, new, work = sys.argv[1:]
+with open(os.path.join(new, "kimi.plugin.json")) as handle:
+    expected_version = json.load(handle)["version"]
 master, slave = pty.openpty()
 fcntl.ioctl(slave, termios.TIOCSWINSZ, struct.pack("HHHH", 40, 120, 0, 0))
 process = subprocess.Popen([executable], stdin=slave, stdout=slave, stderr=slave,
@@ -115,10 +117,10 @@ try:
     record('disable-native-mcp-capability')
     install(new)
     assert record("update-while-disabled")["enabled"] is False
-    assert steps[-1]["version"] == "0.3.0"
+    assert steps[-1]["version"] == expected_version
     assert installed()['capabilities']['mcpServers']['zcode_memory']['enabled'] is False
     start = command("/plugins info zcode-memory")
-    wait(lambda: "0.3.0" in text(start))
+    wait(lambda: expected_version in text(start))
     start = command("/plugins install " + os.path.join(work, "missing-plugin"))
     wait(lambda: "Trust and install" in text(start))
     send("\x1b[B")

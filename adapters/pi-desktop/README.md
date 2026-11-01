@@ -4,7 +4,7 @@
 
 Run build, tests and packaging from the project root. Import the generated `.piplug` using the host plugin manager. The source adapter folder alone needs `../../src` and root dependencies; the generated package includes `unified/` and YAML, so it stands alone. No command here installs the plugin into a real profile automatically.
 
-v0.3.0 正式包：Release 中的 `local.zcode-memory-unified-0.3.0.piplug`。在插件管理器导入后启用；禁用使用同一管理器开关，主进程停止轮询、取消任务并解绑事件。再次启用由宿主重建运行时并恢复原设置。更新导入相同 ID 新版并确认替换，保留设置；移除使用管理器卸载，不选择清除数据。记忆目录独立，更新/卸载不主动删除。扩展 sidecar 由宿主管理器卸载，正在进行的会话按宿主重载语义生效。主进程启停/更新保留数据的契约有测试，完整 GUI 安装、重载与升级仍须实机验收。
+v0.3.1 正式包：Release 中的 `local.zcode-memory-unified-0.3.1.piplug`。在插件管理器导入后启用；禁用使用同一管理器开关，主进程停止轮询、取消任务并解绑事件。再次启用由宿主重建运行时并恢复原设置。更新导入相同 ID 新版并确认替换，保留设置；移除使用管理器卸载，不选择清除数据。记忆目录独立，更新/卸载不主动删除。扩展 sidecar 由宿主管理器卸载，正在进行的会话按宿主重载语义生效。主进程启停/更新保留数据的契约有测试，完整 GUI 安装、重载与升级仍须实机验收。
 
 New ID: `local.zcode-memory-unified`; data: `~/.pi-desktop/zcode-memory-unified`. Native memory tools require the host to expose `registerTool`; the management panel supplies manual actions when it does not. Task mutation is version dependent and is not claimed to be subagent API compatibility. The local test suite exercises panel/event/tool contracts; an installed PI-Desktop GUI has not been verified. Model extraction, semantic recall and Dream can transmit relevant content to the selected provider and incur charges. See the root README capability matrix and retained NOTICE.md for precise boundaries and provenance.
 

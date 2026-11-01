@@ -1,6 +1,6 @@
 {
   "name": "zcode-memory",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Local-first Markdown memory with isolated projects, MCP tools and opt-in extraction",
   "license": "Apache-2.0",
   "interface": {

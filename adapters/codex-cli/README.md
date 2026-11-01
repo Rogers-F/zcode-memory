@@ -1,13 +1,13 @@
 # ZCode Memory for Codex CLI
 
-A local MCP server with Markdown facts, guarded writes, revisions, BM25 retrieval, migration, AGENTS.md guidance and native plugin skills/hooks. v0.3.0 provides `.agents/plugins/marketplace.json` and a complete Git plugin root with offline YAML; it does not depend on ignored dist output.
+A local MCP server with Markdown facts, guarded writes, revisions, BM25 retrieval, migration, AGENTS.md guidance and native plugin skills/hooks. v0.3.1 provides `.agents/plugins/marketplace.json` and a complete Git plugin root with offline YAML; it does not depend on ignored dist output.
 
 ```sh
 codex plugin marketplace add Rogers-F/zcode-memory
 codex plugin add zcode-memory@zcode-memory
 codex plugin list --marketplace zcode-memory
 # Install the small persistent toggle/update bridge once, after release publication:
-npm install -g https://github.com/Rogers-F/zcode-memory/releases/download/v0.3.0/zcode-memory-0.3.0.tgz
+npm install -g https://github.com/Rogers-F/zcode-memory/releases/download/v0.3.1/zcode-memory-0.3.1.tgz
 zcode-memory host disable --host codex-cli
 zcode-memory host enable --host codex-cli
 zcode-memory host status --host codex-cli

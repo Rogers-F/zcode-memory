@@ -2,7 +2,7 @@
 
 保留 DSH 原生设置页、只读文件预览、工具注册及权限链，事实修改经统一核心的 journal、互斥、冲突和可恢复归档。DSH 插件仍要求 Node >=24 / DSH 0.2.1-rc.2，不能用 Node 22 的核心兼容性替代宿主要求。
 
-The versioned Release `zcode-memory-dsh-0.3.0.tgz` includes the full runtime. Import/install it through the native plugin manager; use its plugin switch to enable/disable, import the next package with the same name to update while retaining configuration, and Remove/Uninstall without selecting data deletion. Cordis activation/disposal owns native tools and listeners; disabling the plugin removes those effects until it is re-enabled. Memory and settings live outside the installed code and survive replacement/removal. The native Cordis lifecycle is tested; the browser installer/update UI is still an explicit verification boundary.
+The versioned Release `zcode-memory-dsh-0.3.1.tgz` includes the full runtime. Import/install it through the native plugin manager; use its plugin switch to enable/disable, import the next package with the same name to update while retaining configuration, and Remove/Uninstall without selecting data deletion. Cordis activation/disposal owns native tools and listeners; disabling the plugin removes those effects until it is re-enabled. Memory and settings live outside the installed code and survive replacement/removal. The native Cordis lifecycle is tested; the browser installer/update UI is still an explicit verification boundary.
 
 On unload, the adapter also retires its last synthetic memory attachment from each active session's visible surface and cancels pending recall. Removing the hook alone would leave AgentLoop's previous request override visible. User/assistant/tool history and the native immutable audit log remain; the next model request has no plugin attachment or memory rules.
 

@@ -23,18 +23,18 @@ build to tag, push, publish, install into real hosts or silently update users.
    and license notice with the DSH build tools before packaging. Do not commit node_modules, dist, artifacts,
    .work, user data, credentials or machine-specific paths.
 4. After a human approves the commit/push/tag, publish the six verified assets
-   under the matching existing tag (for this version `v0.3.0`):
+   under the matching existing tag (for this version `v0.3.1`):
 
-   - `zcode-memory-0.3.0.tgz` (Pi package / optional persistent control CLI)
-   - `zcode-memory-claude-code-0.3.0.tgz` (offline runtime)
-   - `zcode-memory-codex-cli-0.3.0.tgz` (offline runtime)
-   - `zcode-memory-dsh-0.3.0.tgz`
-   - `local.zcode-memory-unified-0.3.0.piplug`
-   - `zcode-memory-kimi-cli-0.3.0.zip`
+   - `zcode-memory-0.3.1.tgz` (Pi package / optional persistent control CLI)
+   - `zcode-memory-claude-code-0.3.1.tgz` (offline runtime)
+   - `zcode-memory-codex-cli-0.3.1.tgz` (offline runtime)
+   - `zcode-memory-dsh-0.3.1.tgz`
+   - `local.zcode-memory-unified-0.3.1.piplug`
+   - `zcode-memory-kimi-cli-0.3.1.zip`
 
    The manual `Package release` GitHub workflow builds/verifies and uploads these
    files for review. It does not create a tag or GitHub Release. A maintainer can
-   later run `gh release create v0.3.0 --verify-tag --draft` and upload exactly
+   later run `gh release create v0.3.1 --verify-tag --draft` and upload exactly
    those six assets plus SHA256SUMS, verify them, then explicitly publish.
 5. Smoke-test public marketplace registration and the Kimi release URL after
    publication. These remote URLs cannot be validated before the assets exist.

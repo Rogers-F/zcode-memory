@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "local.zcode-memory-unified",
   "name": "ZCode Memory Unified",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Unified Markdown memory; explicit opt-in extraction, shared reliable core, PI-Desktop panel.",
   "author": "Contributors (see NOTICE.md)",
   "license": "Apache-2.0",

@@ -1,4 +1,4 @@
-# ZCode Memory Unified — v0.3.0
+# ZCode Memory Unified — v0.3.1
 
 统一并增强 ZCode 风格的长期记忆。保留 PI-Desktop 管理面板、DSH 设置页及原生权限链，新增 Claude Code CLI、Codex CLI、Pi CLI、Kimi CLI 适配。六个宿主使用同一套 Markdown 事实、增量提取、维护、迁移和召回核心，各宿主默认拥有独立数据空间。ZCode 官方仅作为行为和来源参照，本项目不替换其内建记忆。
 
@@ -58,7 +58,7 @@ npm run benchmark    # 1000 条合成事实，5 个新进程，本地 BM25
 
 ### 正式安装与生命周期
 
-下列 v0.3.0 Release URL 在维护者完成发布后可用；源码验收本身不创建 tag、Release 或上传包。不要把仓库根作为 Kimi 插件安装。Claude/Codex 的 Git marketplace 则直接使用本仓库受版本控制的 `bin/`、`src/` 和 `vendor/yaml/`，无需 `dist` 或安装时运行 npm。
+下列 v0.3.1 Release URL 在维护者完成发布后可用；源码验收本身不创建 tag、Release 或上传包。不要把仓库根作为 Kimi 插件安装。Claude/Codex 的 Git marketplace 则直接使用本仓库受版本控制的 `bin/`、`src/` 和 `vendor/yaml/`，无需 `dist` 或安装时运行 npm。
 
 **Claude Code CLI**（终端；安装默认启用）：
 
@@ -89,7 +89,7 @@ codex plugin remove zcode-memory@zcode-memory
 Codex 0.164.0 没有原生插件 enable/disable 动词。上面的统一控制命令调用原生 app-server `config/read` / `config/value/write`，按原生版本做乐观并发检查，持久设置 `[plugins."zcode-memory@zcode-memory"].enabled`，不伪造命令、不编辑 TOML 字符串。它使用 `$CODEX_HOME/config.toml`；项目或管理策略可能覆盖用户状态，异常会明确报错。安装此控制命令一次：
 
 ```sh
-npm install -g https://github.com/Rogers-F/zcode-memory/releases/download/v0.3.0/zcode-memory-0.3.0.tgz
+npm install -g https://github.com/Rogers-F/zcode-memory/releases/download/v0.3.1/zcode-memory-0.3.1.tgz
 zcode-memory host status --host codex-cli
 ```
 
@@ -106,12 +106,12 @@ pi update git:github.com/Rogers-F/zcode-memory
 pi remove git:github.com/Rogers-F/zcode-memory
 ```
 
-`pi update` 只在你执行时拉取该 source 的新版。若需要钉版本，可安装 `git:github.com/Rogers-F/zcode-memory@v0.3.0`；标签不会被 update 移动，升级时执行 `pi install` 指定新标签，同仓库身份替换原声明并保留资源过滤。Pi 的 Git 安装由原生包管理器安装声明的依赖。脚本化用户也可用 `zcode-memory host disable|enable --host pi-cli --source <pi-list中的source>`：按官方 `packages[].extensions/skills/prompts/themes` 过滤配置原子更新，恢复原选择，其他设置保留。普通用户使用 `pi config` 即可。`ZCODE_MEMORY_PI_MCP=1` 可另开原生 MCP，默认使用原生记忆工具。
+`pi update` 只在你执行时拉取该 source 的新版。若需要钉版本，可安装 `git:github.com/Rogers-F/zcode-memory@v0.3.1`；标签不会被 update 移动，升级时执行 `pi install` 指定新标签，同仓库身份替换原声明并保留资源过滤。Pi 的 Git 安装由原生包管理器安装声明的依赖。脚本化用户也可用 `zcode-memory host disable|enable --host pi-cli --source <pi-list中的source>`：按官方 `packages[].extensions/skills/prompts/themes` 过滤配置原子更新，恢复原选择，其他设置保留。普通用户使用 `pi config` 即可。`ZCODE_MEMORY_PI_MCP=1` 可另开原生 MCP，默认使用原生记忆工具。
 
 **Kimi CLI**（在 Kimi 输入，正式版本化 ZIP URL）：
 
 ```text
-/plugins install https://github.com/Rogers-F/zcode-memory/releases/download/v0.3.0/zcode-memory-kimi-cli-0.3.0.zip
+/plugins install https://github.com/Rogers-F/zcode-memory/releases/download/v0.3.1/zcode-memory-kimi-cli-0.3.1.zip
 /plugins list
 /plugins disable zcode-memory
 /plugins enable zcode-memory
@@ -122,11 +122,11 @@ pi remove git:github.com/Rogers-F/zcode-memory
 
 安装、启停、更新、移除后运行 `/reload` 或 `/new`；MCP 在重载/新会话生效。更新在 `/plugins` 管理器选择该插件的可用更新，或明确安装新版本的 ZIP URL；也可用 `/plugins marketplace https://raw.githubusercontent.com/Rogers-F/zcode-memory/main/marketplaces/kimi.json` 浏览本项目目录再确认更新。插件为用户级；hooks 必须在宿主允许。不要把本地 `.zip` 直接交给 `/plugins install`，本机只接受解压后的目录；离线步骤见 [Kimi README](adapters/kimi-cli/README.md)。无显式模型桥接时 `semanticAvailable:false`，不查账号。
 
-离线安装也使用同一持久管理器：终端执行 `unzip /absolute/zcode-memory-kimi-cli-0.3.0.zip -d /absolute/kimi-memory-plugin`，再在 Kimi 执行 `/plugins install /absolute/kimi-memory-plugin` 和 `/reload`；后续启停/移除命令相同。
+离线安装也使用同一持久管理器：终端执行 `unzip /absolute/zcode-memory-kimi-cli-0.3.1.zip -d /absolute/kimi-memory-plugin`，再在 Kimi 执行 `/plugins install /absolute/kimi-memory-plugin` 和 `/reload`；后续启停/移除命令相同。
 
-**DSH**：从 [v0.3.0 Release](https://github.com/Rogers-F/zcode-memory/releases/tag/v0.3.0) 下载 `zcode-memory-dsh-0.3.0.tgz` → DSH 插件管理器导入/安装 → 配置 ID `zcode-memory-unified`，包名 `@local/zcode-memory-dsh`。在管理器启用/禁用插件；插件设置页的工作区记忆开关另控 `enabled`（默认 false）。升级时导入同一包名的新版确认替换，保留原配置，不先删除数据；卸载使用管理器 Remove，不选择清数据。后台提取 `extractionEnabled` 和语义 `semanticRecallEnabled` 仍分别默认关闭。当前会话的扩展效果在卸载/重载后停止，既有历史不撤回。
+**DSH**：从 [v0.3.1 Release](https://github.com/Rogers-F/zcode-memory/releases/tag/v0.3.1) 下载 `zcode-memory-dsh-0.3.1.tgz` → DSH 插件管理器导入/安装 → 配置 ID `zcode-memory-unified`，包名 `@local/zcode-memory-dsh`。在管理器启用/禁用插件；插件设置页的工作区记忆开关另控 `enabled`（默认 false）。升级时导入同一包名的新版确认替换，保留原配置，不先删除数据；卸载使用管理器 Remove，不选择清数据。后台提取 `extractionEnabled` 和语义 `semanticRecallEnabled` 仍分别默认关闭。当前会话的扩展效果在卸载/重载后停止，既有历史不撤回。
 
-**PI-Desktop**：同一 Release 下载 `local.zcode-memory-unified-0.3.0.piplug` → 插件管理器导入 → ID `local.zcode-memory-unified` → 启用。禁用使用管理器的插件开关，更新导入同 ID 新版并确认替换，卸载使用 Remove/Uninstall，默认保留 `~/.pi-desktop/zcode-memory-unified` 与项目数据。主进程卸载停止后台任务，宿主管理扩展运行器卸载；可打开命令 `zcode-memory-unified.open` 检查设置与版本。本机没有 PI-Desktop GUI，完整 GUI 生命周期未实机验收。
+**PI-Desktop**：同一 Release 下载 `local.zcode-memory-unified-0.3.1.piplug` → 插件管理器导入 → ID `local.zcode-memory-unified` → 启用。禁用使用管理器的插件开关，更新导入同 ID 新版并确认替换，卸载使用 Remove/Uninstall，默认保留 `~/.pi-desktop/zcode-memory-unified` 与项目数据。主进程卸载停止后台任务，宿主管理扩展运行器卸载；可打开命令 `zcode-memory-unified.open` 检查设置与版本。本机没有 PI-Desktop GUI，完整 GUI 生命周期未实机验收。
 
 所有宿主 remove 默认只移除插件/配置声明，保留独立记忆及其设置；宿主提供的“删除数据”选项不要勾选。禁用不改变自动提取等用户选择，重新启用恢复；正在运行的会话按宿主重载语义生效。升级不迁移到其他宿主、不打开共享写入。旧 v0.2.0 手工 MCP/hooks/extension 声明应由用户在原宿主删除后再装正式插件，避免两份入口；记忆目录不改动。`scripts/configure.cjs` 仅保留旧配置诊断/离线审阅用途，普通安装不依赖手动合并文件。
 
@@ -245,6 +245,8 @@ DSH 原生导入工具只允许当前工作区内的源目录；外部旧插件�
 1000 条合成记忆基准通过 `npm run benchmark` 复现，结果见 `.work/benchmark/report.json`，最终命令/测试数字与分发 SHA256 见 `.work/verification/final.json`。每个样本都是新 Node 进程，操作系统文件缓存仍可能命中；测量包含模块加载。断言选中一条只读取一条正文、零 fsync/零统计 rename；不宣称磁盘冷读、万条规模或真实 tokenizer。
 
 v0.2.0 新增 Kimi 五个新 hook 进程、原生 stdin 纯文本/零字节、resume/PostCompact、Stop/取消、默认 HOME、显式 MCP 项目隔离与六包离线验证；原五宿主回归仍保留。Kimi 2.4.1 ACP initialize 成功，但隔离 session/new 返回 Authentication required，未执行原生 install/info；证据见 `.work/native/cli/kimi/report.json`。没有真实模型回合、权限 UI 或原生压缩注入验收。
+
+v0.3.1 修复 Pi `/memory` 无参数或纯空白参数时报 Unknown memory tool 的问题，默认列出记忆，其他命令与参数内容保持原有行为。新增注册命令处理器与隔离 Pi 1.4.0 RPC 的真实命令回归。
 
 v0.3.0 新增正式 marketplace/持久包生命周期。隔离原生命令覆盖 Claude/Codex/Pi 的安装、启停、0.2.0→0.3.0 更新、移除与数据/设置保留；版本更新使用当前源码的旧版本元数据 fixture，不冒充历史二进制迁移。Codex 禁用时 hooks/list 为零，更新桥接保留禁用状态；Pi 通过原生包声明加载 scripted provider 与插件，禁用后真实请求无记忆工具/上下文，恢复后再次出现。Kimi 原生 TUI 验证 install/info/enable/disable、更新保留禁用/MCP 选择、失败安装与 remove；标准 ACP 的认证边界不变。未修改的 TUI 在 sandbox 报 fs.watch EMFILE，测试记录原始失败后仅为管理器验证加入测试 watcher stub，并走正常信任确认；未验证原生监听、模型、hook 权限或 /reload 后的真实模型投递。DSH 使用真实 Cordis 卸载/重载并确认工具消失、恢复、数据保留；PI-Desktop 主进程停止轮询并解绑事件，重建恢复设置。GUI 安装/升级与远程 Release URL 下载仍需发布后验收。测试数字和六包 SHA 以本轮 final.json 为准。
 

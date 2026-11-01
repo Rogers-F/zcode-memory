@@ -1,9 +1,9 @@
-# Kimi CLI adapter — v0.3.0
+# Kimi CLI adapter — v0.3.1
 
 Use Kimi's native user-level plugin manager with the published versioned Release URL:
 
 ```text
-/plugins install https://github.com/Rogers-F/zcode-memory/releases/download/v0.3.0/zcode-memory-kimi-cli-0.3.0.zip
+/plugins install https://github.com/Rogers-F/zcode-memory/releases/download/v0.3.1/zcode-memory-kimi-cli-0.3.1.zip
 /plugins list
 /plugins disable zcode-memory
 /plugins enable zcode-memory
@@ -18,7 +18,7 @@ Offline fallback: build with `npm run pack` and install the complete `dist/kimi-
 to Kimi (local plugin installation accepts directories):
 
 ```sh
-unzip /absolute/zcode-memory/artifacts/zcode-memory-kimi-cli-0.3.0.zip -d /absolute/kimi-memory-plugin
+unzip /absolute/zcode-memory/artifacts/zcode-memory-kimi-cli-0.3.1.zip -d /absolute/kimi-memory-plugin
 ```
 
 ```text
