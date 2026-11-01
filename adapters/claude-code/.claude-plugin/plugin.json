@@ -1,0 +1,9 @@
+{
+  "name": "zcode-memory",
+  "version": "0.1.0",
+  "description": "Host-isolated Markdown memory with MCP tools and opt-in extraction hooks",
+  "license": "Apache-2.0",
+  "author": {
+    "name": "ZCode Memory contributors (see NOTICE.md)"
+  }
+}

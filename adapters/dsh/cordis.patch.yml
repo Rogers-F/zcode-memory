@@ -1,0 +1,9 @@
+- insert:
+    - id: zcode-memory-unified
+      name: '@local/zcode-memory-dsh'
+      config:
+        enabled: false
+        use: true
+        extractionEnabled: false
+        semanticRecallEnabled: false
+        customAgents: {}

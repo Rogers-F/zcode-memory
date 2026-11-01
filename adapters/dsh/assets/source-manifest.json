@@ -1,0 +1,222 @@
+{
+  "schemaVersion": 1,
+  "upstream": "ZCode local source snapshot",
+  "upstreamVersion": "3.16.1",
+  "gitRevision": null,
+  "revisionNote": "The supplied source snapshot has no .git metadata; exact file SHA256 values identify the source, not an inferred commit.",
+  "upstreamLicense": "Apache-2.0",
+  "copyright": "Copyright 2026 Z.AI Co., Ltd",
+  "note": "SHA256 hashes are of exact upstream bytes, including line endings. Original assets are unmodified; src/storage.js and src/prompts.js are prominently marked modified.",
+  "adaptations": [
+    "TypeScript to ESM JavaScript",
+    "DSH .dsh custom-agent scope roots instead of .zcode",
+    "Index file data is background context, never elevated instructions",
+    "Stable bounded reads and strict case/symlink/path protections for all memory IO",
+    "Explicit cancellation guards and isolated read-before-write state"
+  ],
+  "files": [
+    {
+      "source": "LICENSE",
+      "sha256": "606c36baf38b973227273df12a74930e4b4137280eea835c5cd623aa4553c13b",
+      "copiedTo": "assets/upstream/LICENSE",
+      "license": "Apache-2.0",
+      "modified": false
+    },
+    {
+      "source": "NOTICE.md",
+      "sha256": "6bd5e85b48a192ce100a9e5e0636e3a90d3f6e1ac1c4fe74369e13bd79bb4c45",
+      "copiedTo": "assets/upstream/NOTICE.md",
+      "license": "Apache-2.0",
+      "modified": false
+    },
+    {
+      "source": "package.json",
+      "sha256": "5478869d5c059fd7bff95c6388b908df899473a7d337dbe9a4c86a9758d366d5",
+      "copiedTo": "assets/upstream/package.json",
+      "license": "Apache-2.0",
+      "modified": false
+    },
+    {
+      "source": "apps/zcode-cli/packages/core/src/memory/project-root.ts",
+      "sha256": "69ea16dc573f1e60e5579be494d02dc7735ab24821208071f304e5699c2d7f55",
+      "copiedTo": "assets/upstream/apps/zcode-cli/packages/core/src/memory/project-root.ts",
+      "license": "Apache-2.0",
+      "modified": false
+    },
+    {
+      "source": "apps/zcode-cli/packages/core/src/memory/index-content.ts",
+      "sha256": "09397af14b35c25822e901c44dc702c927b94b75c072a6f5cd595b7d9e9f4e71",
+      "copiedTo": "assets/upstream/apps/zcode-cli/packages/core/src/memory/index-content.ts",
+      "license": "Apache-2.0",
+      "modified": false
+    },
+    {
+      "source": "apps/zcode-cli/packages/core/src/memory/origin-session.ts",
+      "sha256": "5fd667e140c5b79c697c973cb6f05597c8c37d0ea2b404754f31eb94621e4fc0",
+      "copiedTo": "assets/upstream/apps/zcode-cli/packages/core/src/memory/origin-session.ts",
+      "license": "Apache-2.0",
+      "modified": false
+    },
+    {
+      "source": "apps/zcode-cli/packages/core/src/memory/memory-file-path.ts",
+      "sha256": "60003938862cd377719e029dc20f3ee40c78be4ee1c4244d8dc528bcfd1ab0ff",
+      "copiedTo": "assets/upstream/apps/zcode-cli/packages/core/src/memory/memory-file-path.ts",
+      "license": "Apache-2.0",
+      "modified": false
+    },
+    {
+      "source": "apps/zcode-cli/packages/core/src/memory/extraction.ts",
+      "sha256": "834b5639cbd1e90f2104bd9c61e9598835e9ecfc8953338529480837a09ff041",
+      "copiedTo": "assets/upstream/apps/zcode-cli/packages/core/src/memory/extraction.ts",
+      "license": "Apache-2.0",
+      "modified": false
+    },
+    {
+      "source": "apps/zcode-cli/packages/core/src/memory/dream.ts",
+      "sha256": "15a90375d91b22bbb4ad1b9b7b3829d4744ef31c8f97e80613bbd60e6cce3d45",
+      "copiedTo": "assets/upstream/apps/zcode-cli/packages/core/src/memory/dream.ts",
+      "license": "Apache-2.0",
+      "modified": false
+    },
+    {
+      "source": "apps/zcode-cli/packages/core/src/memory/recall/manifest.ts",
+      "sha256": "7dd910cbd1222ded8fafdbcd76be136a38c2d0b11250a07b0fd6aaff73e0b7c2",
+      "copiedTo": "assets/upstream/apps/zcode-cli/packages/core/src/memory/recall/manifest.ts",
+      "license": "Apache-2.0",
+      "modified": false
+    },
+    {
+      "source": "apps/zcode-cli/packages/core/src/memory/recall/content.ts",
+      "sha256": "9063e710e8ad3fa9a30a22f69eae023c3a68d18ac1601db9e092dbd7b95a8b35",
+      "copiedTo": "assets/upstream/apps/zcode-cli/packages/core/src/memory/recall/content.ts",
+      "license": "Apache-2.0",
+      "modified": false
+    },
+    {
+      "source": "apps/zcode-cli/packages/core/src/memory/recall/selector.ts",
+      "sha256": "c3f15e2847af5b3a3379c55c1da87e4adbac0a41fc72ad70d1876849e58939eb",
+      "copiedTo": "assets/upstream/apps/zcode-cli/packages/core/src/memory/recall/selector.ts",
+      "license": "Apache-2.0",
+      "modified": false
+    },
+    {
+      "source": "apps/zcode-cli/packages/core/src/subagent/persistent-memory.ts",
+      "sha256": "4ec0164f2ca988abdd00b6c58aa61a21d6fddf2955f598817514f90375de3751",
+      "copiedTo": "assets/upstream/apps/zcode-cli/packages/core/src/subagent/persistent-memory.ts",
+      "license": "Apache-2.0",
+      "modified": false
+    },
+    {
+      "source": "apps/zcode-cli/packages/core/src/subagent/persistent-memory-prompt.ts",
+      "sha256": "ed2298b5582d4be07676fef739ad50239e9b68c63ca4595bd54252cb867fa7c3",
+      "copiedTo": "assets/upstream/apps/zcode-cli/packages/core/src/subagent/persistent-memory-prompt.ts",
+      "license": "Apache-2.0",
+      "modified": false
+    },
+    {
+      "source": "apps/zcode-cli/packages/core/src/context/sections/memory.ts",
+      "sha256": "719683a853fb1956884c86dbedb56b8dee6f246e3ce7343109a5d50383929209",
+      "copiedTo": "assets/upstream/apps/zcode-cli/packages/core/src/context/sections/memory.ts",
+      "license": "Apache-2.0",
+      "modified": false
+    },
+    {
+      "source": "apps/zcode-cli/packages/core/src/tool/read-file-state.ts",
+      "sha256": "7fd0f0515ce77c639403528ce860a0733586506e90555ff913964089e4b21bdb",
+      "copiedTo": "assets/upstream/apps/zcode-cli/packages/core/src/tool/read-file-state.ts",
+      "license": "Apache-2.0",
+      "modified": false
+    },
+    {
+      "source": "apps/zcode-cli/packages/core/src/memory/directory.ts",
+      "sha256": "e54c40715e6e8f380f7b09a5ef49411d45f8e6c45a92da7d45cab729393b935d",
+      "copiedTo": "assets/upstream/apps/zcode-cli/packages/core/src/memory/directory.ts",
+      "license": "Apache-2.0",
+      "modified": false
+    },
+    {
+      "source": "apps/zcode-cli/packages/core/src/tool/handlers/read.ts",
+      "sha256": "fc594b2eb93a06235361b56e2c2521e7f29afda473095659119cfd0bf99e3702",
+      "copiedTo": "assets/upstream/apps/zcode-cli/packages/core/src/tool/handlers/read.ts",
+      "license": "Apache-2.0",
+      "modified": false
+    },
+    {
+      "source": "apps/zcode-cli/packages/core/src/tool/handlers/edit.ts",
+      "sha256": "400b05f6f952c2a5f33937bc2c76aceae16d67a6995f0a151ed371dc12dceea6",
+      "copiedTo": "assets/upstream/apps/zcode-cli/packages/core/src/tool/handlers/edit.ts",
+      "license": "Apache-2.0",
+      "modified": false
+    },
+    {
+      "source": "apps/zcode-cli/packages/core/src/runtime/methods/context.ts",
+      "sha256": "bf5e58b0799a510fcfac79667920159088121ba9d2a788a8889211fec0327def",
+      "copiedTo": "assets/upstream/apps/zcode-cli/packages/core/src/runtime/methods/context.ts",
+      "license": "Apache-2.0",
+      "modified": false
+    },
+    {
+      "source": "apps/zcode-cli/packages/core/src/runtime/helpers/project-memory-dream.ts",
+      "sha256": "bafdc766bb5d1008a4cb7ef2a51bd51fe0f78a927d4315c3af265ae3876e109b",
+      "copiedTo": "assets/upstream/apps/zcode-cli/packages/core/src/runtime/helpers/project-memory-dream.ts",
+      "license": "Apache-2.0",
+      "modified": false
+    },
+    {
+      "source": "packages/services/src/memory/projectMemoryStableRead.ts",
+      "sha256": "2ade3a41788b4c6d4a08ddf600e8052d589987f242ee7143042d9a49da76fa52",
+      "copiedTo": "assets/upstream/packages/services/src/memory/projectMemoryStableRead.ts",
+      "license": "Apache-2.0",
+      "modified": false
+    },
+    {
+      "source": "packages/services/src/memory/memoryService.ts",
+      "sha256": "a7a8256b2f886fa4e4f970a30d8cdfa11719515aa1a9dc3d75d7a5835e7bd46d",
+      "copiedTo": "assets/upstream/packages/services/src/memory/memoryService.ts",
+      "license": "Apache-2.0",
+      "modified": false
+    },
+    {
+      "source": "apps/zcode-cli/packages/core/tests/fixtures/memory/main-memory-default-index.md",
+      "sha256": "d025ec6dbf760e52ee45e8c5d7d43674120d3429224a32ce6e22afb208ba1026",
+      "copiedTo": "assets/upstream/apps/zcode-cli/packages/core/tests/fixtures/memory/main-memory-default-index.md",
+      "license": "Apache-2.0",
+      "modified": false
+    },
+    {
+      "source": "apps/zcode-cli/packages/core/tests/fixtures/memory/main-memory-semantic-recall.md",
+      "sha256": "9eff2fccabc6f069fa53e71b074f23b406f65922ee649e5fbe0b4d9ba642eb71",
+      "copiedTo": "assets/upstream/apps/zcode-cli/packages/core/tests/fixtures/memory/main-memory-semantic-recall.md",
+      "license": "Apache-2.0",
+      "modified": false
+    },
+    {
+      "source": "apps/zcode-cli/packages/core/tests/fixtures/memory/main-memory-index.md",
+      "sha256": "68a2ab5fe46d4facbe7ea7d4412c41eb5295176c73c4d53cd3c1dd1dc5a3b3b6",
+      "copiedTo": "assets/upstream/apps/zcode-cli/packages/core/tests/fixtures/memory/main-memory-index.md",
+      "license": "Apache-2.0",
+      "modified": false
+    },
+    {
+      "source": "apps/zcode-cli/packages/core/tests/fixtures/memory/custom-agent-memory.md",
+      "sha256": "992c06bcf86cb17c95f07774e504b800408d2d0a67afbdd443c7ddb4f0e33919",
+      "copiedTo": "assets/upstream/apps/zcode-cli/packages/core/tests/fixtures/memory/custom-agent-memory.md",
+      "license": "Apache-2.0",
+      "modified": false
+    },
+    {
+      "source": "apps/zcode-cli/packages/core/tests/fixtures/memory/recalled-memory.md",
+      "sha256": "87fe6269835fa70c78f406af935552c0b5ea51ad6a023b1ffccb31248f5e7678",
+      "copiedTo": "assets/upstream/apps/zcode-cli/packages/core/tests/fixtures/memory/recalled-memory.md",
+      "license": "Apache-2.0",
+      "modified": false
+    },
+    {
+      "source": "apps/zcode-cli/packages/core/tests/fixtures/memory/memory-update.md",
+      "sha256": "48e98a0d451c68c29036613b556acf6cf8662a542e462dbb51a31cbf689b2940",
+      "copiedTo": "assets/upstream/apps/zcode-cli/packages/core/tests/fixtures/memory/memory-update.md",
+      "license": "Apache-2.0",
+      "modified": false
+    }
+  ]
+}

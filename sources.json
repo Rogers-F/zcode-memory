@@ -1,0 +1,13 @@
+{
+  "references": {
+    "ZCode": "a60ba6a7e5a06742270ca605f5d2cc2766afa7e1",
+    "pi-zcode-memory": "946784717c56b19bc09ddf8808c2f5eaea3e418b",
+    "dsh-zcode-memory": "12f741bf84a9619a50fa5ae8f0672789d1b7e4ca"
+  },
+  "copiedYaml": {
+    "name": "yaml",
+    "version": "2.9.0",
+    "license": "ISC"
+  },
+  "policy": "Reference repositories are read-only. Copied adapters retain their upstream notices; local changes are described in NOTICE.md."
+}

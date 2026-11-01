@@ -1,0 +1,5 @@
+'use strict';
+function parse(argv){const options={},rest=[];for(let i=0;i<argv.length;i++){if(argv[i].startsWith('--')){const key=argv[i].slice(2);if(['read-only','apply','manual'].includes(key))options[key]=true;else{if(argv[i+1]===undefined)throw new Error(`Missing --${key} value`);options[key]=argv[++i];}}else rest.push(argv[i]);}return {options,rest};}
+function serviceOptions(options){return Object.fromEntries(Object.entries({host:options.host??process.env.ZCODE_MEMORY_HOST,home:options.home??process.env.ZCODE_MEMORY_HOME,root:options.root??process.env.ZCODE_MEMORY_ROOT,project:options.project??process.env.ZCODE_MEMORY_PROJECT??process.cwd(),workspaceIdentity:options.identity??process.env.ZCODE_MEMORY_WORKSPACE_ID,session:options.session,readOnly:options['read-only']??process.env.ZCODE_MEMORY_READ_ONLY==='1'}).filter(([,v])=>v!==undefined));}
+async function readInput(stream=process.stdin){let text='';for await(const chunk of stream){text+=chunk;if(Buffer.byteLength(text)>8*1024*1024)throw new Error('Input exceeds 8 MiB');}return text.trim()?JSON.parse(text):{};}
+module.exports={parse,serviceOptions,readInput};

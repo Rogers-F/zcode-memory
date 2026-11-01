@@ -1,0 +1,11 @@
+import { build } from 'esbuild';
+import { mkdir,writeFile,readFile } from 'node:fs/promises';
+import { dirname,resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
+const root=resolve(dirname(fileURLToPath(import.meta.url)),'..');
+const pkg=JSON.parse(await readFile(resolve(root,'package.json'),'utf8'));
+const result=await build({absWorkingDir:root,entryPoints:['src/client/index.js'],bundle:true,write:false,platform:'browser',format:'cjs',target:'es2022',external:['react'],minify:false,legalComments:'inline'});
+const output=`// Apache-2.0. DSH client module; includes marked (MIT). See NOTICE.md.\nwindow.__ModuleLoader__.load({id:${JSON.stringify(pkg.name)},factory:(require)=>{var module={exports:{}};var exports=module.exports;\n${result.outputFiles[0].text}\nreturn module.exports;}});\n`;
+await mkdir(resolve(root,'dist'),{recursive:true});
+await writeFile(resolve(root,'dist/client.js'),output);
+console.log(`Built dist/client.js (${Buffer.byteLength(output)} bytes)`);

@@ -1,0 +1,407 @@
+{
+  "upstream": "ZCode",
+  "generatedAt": "2026-10-19",
+  "entries": [
+    {
+      "portedPath": "src/engine/common.js",
+      "license": "Apache-2.0",
+      "modifications": "Standalone JavaScript ESM and normalized DSH Adapter seams; see src/engine/README.md for explicit safety divergences",
+      "sources": [
+        {
+          "path": "apps/zcode-cli/packages/core/src/memory/memory-agent-loop.ts",
+          "sha256": "efa4e0d5f4e8972d979b802a8af3296f8151b84cac281d03f40e2734f4beae0a"
+        },
+        {
+          "path": "apps/zcode-cli/packages/core/src/model/auxiliary-model-options.ts",
+          "sha256": "f014f25cfe548151b8071cd294be3aa9cc55521be7ad793f90ca42594b33126a"
+        },
+        {
+          "path": "apps/zcode-cli/packages/core/src/tool/read-file-state.ts",
+          "sha256": "7fd0f0515ce77c639403528ce860a0733586506e90555ff913964089e4b21bdb"
+        },
+        {
+          "path": "apps/zcode-cli/packages/core/src/runtime/helpers/project-memory-agent.ts",
+          "sha256": "0b225bd64acd3ebf432a7b02e2061fd935de235c5d21342a57f8b4a7a0725e4b"
+        }
+      ]
+    },
+    {
+      "portedPath": "src/engine/extraction.js",
+      "license": "Apache-2.0",
+      "modifications": "Standalone JavaScript ESM and normalized DSH Adapter seams; see src/engine/README.md for explicit safety divergences",
+      "sources": [
+        {
+          "path": "apps/zcode-cli/packages/core/src/memory/extraction.ts",
+          "sha256": "834b5639cbd1e90f2104bd9c61e9598835e9ecfc8953338529480837a09ff041"
+        },
+        {
+          "path": "apps/zcode-cli/packages/core/src/runtime/helpers/project-memory-extraction.ts",
+          "sha256": "b575ae82752886c224cedf809d8e9a6050d481d56752337840723cc9b961030f"
+        }
+      ]
+    },
+    {
+      "portedPath": "src/engine/agent-loop.js",
+      "license": "Apache-2.0",
+      "modifications": "Standalone JavaScript ESM and normalized DSH Adapter seams; see src/engine/README.md for explicit safety divergences",
+      "sources": [
+        {
+          "path": "apps/zcode-cli/packages/core/src/memory/memory-agent-loop.ts",
+          "sha256": "efa4e0d5f4e8972d979b802a8af3296f8151b84cac281d03f40e2734f4beae0a"
+        },
+        {
+          "path": "apps/zcode-cli/packages/core/src/runtime/helpers/tool-result.ts",
+          "sha256": "4242f5dfc4b56826bba2e71e076dc119814b9aec7658738bd9667ac27276291d"
+        }
+      ]
+    },
+    {
+      "portedPath": "src/engine/tool-policy.js",
+      "license": "Apache-2.0",
+      "modifications": "Standalone JavaScript ESM and normalized DSH Adapter seams; see src/engine/README.md for explicit safety divergences",
+      "sources": [
+        {
+          "path": "apps/zcode-cli/packages/core/src/memory/memory-agent-loop.ts",
+          "sha256": "efa4e0d5f4e8972d979b802a8af3296f8151b84cac281d03f40e2734f4beae0a"
+        },
+        {
+          "path": "apps/zcode-cli/packages/core/src/memory/dream.ts",
+          "sha256": "15a90375d91b22bbb4ad1b9b7b3829d4744ef31c8f97e80613bbd60e6cce3d45"
+        },
+        {
+          "path": "apps/zcode-cli/packages/core/src/memory/memory-file-path.ts",
+          "sha256": "60003938862cd377719e029dc20f3ee40c78be4ee1c4244d8dc528bcfd1ab0ff"
+        }
+      ]
+    },
+    {
+      "portedPath": "src/engine/recall.js",
+      "license": "Apache-2.0",
+      "modifications": "Standalone JavaScript ESM and normalized DSH Adapter seams; see src/engine/README.md for explicit safety divergences",
+      "sources": [
+        {
+          "path": "apps/zcode-cli/packages/core/src/memory/recall/index.ts",
+          "sha256": "785e98eddee3711f118b5c0b96deb389dfcd2b3ff49db5f2eb3607d146bb1c5e"
+        },
+        {
+          "path": "apps/zcode-cli/packages/core/src/memory/recall/selector.ts",
+          "sha256": "c3f15e2847af5b3a3379c55c1da87e4adbac0a41fc72ad70d1876849e58939eb"
+        },
+        {
+          "path": "apps/zcode-cli/packages/core/src/memory/recall/manifest.ts",
+          "sha256": "7dd910cbd1222ded8fafdbcd76be136a38c2d0b11250a07b0fd6aaff73e0b7c2"
+        },
+        {
+          "path": "apps/zcode-cli/packages/core/src/memory/project-memory-retrieval-branch.ts",
+          "sha256": "daabcbaed6d283021ace2d6241504cbc76209e33e8b489c96ad0e5f3f0131d32"
+        },
+        {
+          "path": "apps/zcode-cli/packages/core/src/runtime/helpers/project-memory-recall.ts",
+          "sha256": "14e204c53fcd4ca791ae0372c7d8818ab88ae194efd8e3fa260786e712aa8832"
+        }
+      ]
+    },
+    {
+      "portedPath": "src/engine/dream.js",
+      "license": "Apache-2.0",
+      "modifications": "Standalone JavaScript ESM and normalized DSH Adapter seams; see src/engine/README.md for explicit safety divergences",
+      "sources": [
+        {
+          "path": "apps/zcode-cli/packages/core/src/memory/dream.ts",
+          "sha256": "15a90375d91b22bbb4ad1b9b7b3829d4744ef31c8f97e80613bbd60e6cce3d45"
+        },
+        {
+          "path": "apps/zcode-cli/packages/core/src/runtime/helpers/project-memory-dream.ts",
+          "sha256": "bafdc766bb5d1008a4cb7ef2a51bd51fe0f78a927d4315c3af265ae3876e109b"
+        }
+      ]
+    },
+    {
+      "portedPath": "src/engine/index.js",
+      "license": "Apache-2.0",
+      "modifications": "Standalone JavaScript ESM and normalized DSH Adapter seams; see src/engine/README.md for explicit safety divergences",
+      "sources": [
+        {
+          "path": "apps/zcode-cli/packages/core/src/runtime/helpers/project-memory-agent.ts",
+          "sha256": "0b225bd64acd3ebf432a7b02e2061fd935de235c5d21342a57f8b4a7a0725e4b"
+        },
+        {
+          "path": "apps/zcode-cli/packages/core/src/runtime/helpers/project-memory-extraction.ts",
+          "sha256": "b575ae82752886c224cedf809d8e9a6050d481d56752337840723cc9b961030f"
+        },
+        {
+          "path": "apps/zcode-cli/packages/core/src/runtime/helpers/project-memory-recall.ts",
+          "sha256": "14e204c53fcd4ca791ae0372c7d8818ab88ae194efd8e3fa260786e712aa8832"
+        },
+        {
+          "path": "apps/zcode-cli/packages/core/src/runtime/helpers/project-memory-dream.ts",
+          "sha256": "bafdc766bb5d1008a4cb7ef2a51bd51fe0f78a927d4315c3af265ae3876e109b"
+        }
+      ]
+    },
+    {
+      "portedPath": "src/engine/shell/bash-command-parser.js",
+      "license": "Apache-2.0",
+      "modifications": "TypeScript type erasure; source behavior retained",
+      "sources": [
+        {
+          "path": "apps/zcode-cli/packages/core/src/tool/handlers/bash-command-parser.ts",
+          "sha256": "8edfb2ddb48e70a3e191bbc7f7fa23307f8a8e5d1d630e06536a734b8f29df4c"
+        }
+      ]
+    },
+    {
+      "portedPath": "src/engine/shell/bash-git-runtime-safety.js",
+      "license": "Apache-2.0",
+      "modifications": "TypeScript type erasure; source behavior retained",
+      "sources": [
+        {
+          "path": "apps/zcode-cli/packages/core/src/tool/handlers/bash-git-runtime-safety.ts",
+          "sha256": "5a1e2fcd26a08d655b8b822ed65b4ed792053637bb19ffa26b3ea8865cd12266"
+        }
+      ]
+    },
+    {
+      "portedPath": "src/engine/shell/bash-readonly-policy-argv-direct.js",
+      "license": "Apache-2.0",
+      "modifications": "TypeScript type erasure; source behavior retained",
+      "sources": [
+        {
+          "path": "apps/zcode-cli/packages/core/src/tool/handlers/bash-readonly-policy-argv-direct.ts",
+          "sha256": "2c1c54ab00a6b3f40a22e53dda371c3710694a4eaf2ce5a5ebdfc2f28f320c7d"
+        }
+      ]
+    },
+    {
+      "portedPath": "src/engine/shell/bash-readonly-policy-argv-flags.js",
+      "license": "Apache-2.0",
+      "modifications": "TypeScript type erasure; source behavior retained",
+      "sources": [
+        {
+          "path": "apps/zcode-cli/packages/core/src/tool/handlers/bash-readonly-policy-argv-flags.ts",
+          "sha256": "91a82fdcea4edf94f02d8415711f7f55aa1ea6d08a57bb070fb7229bc8d1f702"
+        }
+      ]
+    },
+    {
+      "portedPath": "src/engine/shell/bash-readonly-policy-argv-git.js",
+      "license": "Apache-2.0",
+      "modifications": "TypeScript type erasure; source behavior retained",
+      "sources": [
+        {
+          "path": "apps/zcode-cli/packages/core/src/tool/handlers/bash-readonly-policy-argv-git.ts",
+          "sha256": "0f189a35e51475e5190bc54232b2115f36d95015af4dbad455f11f6d3a0ee239"
+        }
+      ]
+    },
+    {
+      "portedPath": "src/engine/shell/bash-readonly-policy-argv-io.js",
+      "license": "Apache-2.0",
+      "modifications": "TypeScript type erasure; source behavior retained",
+      "sources": [
+        {
+          "path": "apps/zcode-cli/packages/core/src/tool/handlers/bash-readonly-policy-argv-io.ts",
+          "sha256": "32500fc3b8a1426ae042d3567234523847d35319cd4d52974d43b89b8162b08d"
+        }
+      ]
+    },
+    {
+      "portedPath": "src/engine/shell/bash-readonly-policy-argv.js",
+      "license": "Apache-2.0",
+      "modifications": "TypeScript type erasure; source behavior retained",
+      "sources": [
+        {
+          "path": "apps/zcode-cli/packages/core/src/tool/handlers/bash-readonly-policy-argv.ts",
+          "sha256": "8d2117033e350d4aad179f60f85dc4338839102001b9bacc37d0bbff0b4fdbdd"
+        }
+      ]
+    },
+    {
+      "portedPath": "src/engine/shell/bash-readonly-policy-callbacks.js",
+      "license": "Apache-2.0",
+      "modifications": "TypeScript type erasure; source behavior retained",
+      "sources": [
+        {
+          "path": "apps/zcode-cli/packages/core/src/tool/handlers/bash-readonly-policy-callbacks.ts",
+          "sha256": "a32b0d8880afb1cb548b6e28888c634f26a9eaa887d72722edb75de3fbd321a4"
+        }
+      ]
+    },
+    {
+      "portedPath": "src/engine/shell/bash-readonly-policy-commands.js",
+      "license": "Apache-2.0",
+      "modifications": "TypeScript type erasure; source behavior retained",
+      "sources": [
+        {
+          "path": "apps/zcode-cli/packages/core/src/tool/handlers/bash-readonly-policy-commands.ts",
+          "sha256": "b80707f2016d2d789232a1bac1d08c2f6310d85cd93176e8e30858744b28a7c4"
+        }
+      ]
+    },
+    {
+      "portedPath": "src/engine/shell/bash-readonly-policy-flags-file.js",
+      "license": "Apache-2.0",
+      "modifications": "TypeScript type erasure; source behavior retained",
+      "sources": [
+        {
+          "path": "apps/zcode-cli/packages/core/src/tool/handlers/bash-readonly-policy-flags-file.ts",
+          "sha256": "a4ba6213443ce40971c4a0298620ebb8d8a91a4486905ff667580265aa9542ae"
+        }
+      ]
+    },
+    {
+      "portedPath": "src/engine/shell/bash-readonly-policy-flags-git.js",
+      "license": "Apache-2.0",
+      "modifications": "TypeScript type erasure; source behavior retained",
+      "sources": [
+        {
+          "path": "apps/zcode-cli/packages/core/src/tool/handlers/bash-readonly-policy-flags-git.ts",
+          "sha256": "2af5b0dbb404f2cebb61ff2cacf7234a594d0101a16d7362d147f63360bd075a"
+        }
+      ]
+    },
+    {
+      "portedPath": "src/engine/shell/bash-readonly-policy-flags-process.js",
+      "license": "Apache-2.0",
+      "modifications": "TypeScript type erasure; source behavior retained",
+      "sources": [
+        {
+          "path": "apps/zcode-cli/packages/core/src/tool/handlers/bash-readonly-policy-flags-process.ts",
+          "sha256": "75762b811609818d10f20f147d6ac5453f870619575a2e2c4a089d3f54c84e06"
+        }
+      ]
+    },
+    {
+      "portedPath": "src/engine/shell/bash-readonly-policy-flags-text.js",
+      "license": "Apache-2.0",
+      "modifications": "TypeScript type erasure; source behavior retained",
+      "sources": [
+        {
+          "path": "apps/zcode-cli/packages/core/src/tool/handlers/bash-readonly-policy-flags-text.ts",
+          "sha256": "2c32b4b182aa3ae75aed6b05174a8ccd79d0c21639c3b7903ea7b2b65bde7556"
+        }
+      ]
+    },
+    {
+      "portedPath": "src/engine/shell/bash-readonly-policy-flags.js",
+      "license": "Apache-2.0",
+      "modifications": "TypeScript type erasure; source behavior retained",
+      "sources": [
+        {
+          "path": "apps/zcode-cli/packages/core/src/tool/handlers/bash-readonly-policy-flags.ts",
+          "sha256": "115f4e11524fd21ac64a8505609c15e6134c48bf1efe0dee6cd719c2a91f221d"
+        }
+      ]
+    },
+    {
+      "portedPath": "src/engine/shell/bash-readonly-policy-git-callbacks.js",
+      "license": "Apache-2.0",
+      "modifications": "TypeScript type erasure; source behavior retained",
+      "sources": [
+        {
+          "path": "apps/zcode-cli/packages/core/src/tool/handlers/bash-readonly-policy-git-callbacks.ts",
+          "sha256": "7b27f2bc85a3c549679df432d77f95f726630035f9600843c54542eee8db8962"
+        }
+      ]
+    },
+    {
+      "portedPath": "src/engine/shell/bash-readonly-policy-git-subcommands-core.js",
+      "license": "Apache-2.0",
+      "modifications": "TypeScript type erasure; source behavior retained",
+      "sources": [
+        {
+          "path": "apps/zcode-cli/packages/core/src/tool/handlers/bash-readonly-policy-git-subcommands-core.ts",
+          "sha256": "4fc62adedecfeac584b84123c9ba2e209f522de667df9b5993e89c413b7b9746"
+        }
+      ]
+    },
+    {
+      "portedPath": "src/engine/shell/bash-readonly-policy-git-subcommands-history.js",
+      "license": "Apache-2.0",
+      "modifications": "TypeScript type erasure; source behavior retained",
+      "sources": [
+        {
+          "path": "apps/zcode-cli/packages/core/src/tool/handlers/bash-readonly-policy-git-subcommands-history.ts",
+          "sha256": "7ea3188ec1ee29b31cd883e20b8e85c50beb99a3331b6a4c745bdb9aaff81aaf"
+        }
+      ]
+    },
+    {
+      "portedPath": "src/engine/shell/bash-readonly-policy-multiword-core.js",
+      "license": "Apache-2.0",
+      "modifications": "TypeScript type erasure; source behavior retained",
+      "sources": [
+        {
+          "path": "apps/zcode-cli/packages/core/src/tool/handlers/bash-readonly-policy-multiword-core.ts",
+          "sha256": "d149ff2ebeaf6b4f3859b105bf7ccbd1991e3b95647b2ac10ea39ec43a305a4c"
+        }
+      ]
+    },
+    {
+      "portedPath": "src/engine/shell/bash-readonly-policy-multiword-gh.js",
+      "license": "Apache-2.0",
+      "modifications": "TypeScript type erasure; source behavior retained",
+      "sources": [
+        {
+          "path": "apps/zcode-cli/packages/core/src/tool/handlers/bash-readonly-policy-multiword-gh.ts",
+          "sha256": "1aa2a73dee49f143b21d655fa4e927e44d35d0d46cf110cc86584cefa42d9798"
+        }
+      ]
+    },
+    {
+      "portedPath": "src/engine/shell/bash-readonly-policy-simple-commands.js",
+      "license": "Apache-2.0",
+      "modifications": "TypeScript type erasure; source behavior retained",
+      "sources": [
+        {
+          "path": "apps/zcode-cli/packages/core/src/tool/handlers/bash-readonly-policy-simple-commands.ts",
+          "sha256": "bc04ba9f883a5c83d3b079bf5420abcd4c1264e5ef5251e19325a7ef425425b0"
+        }
+      ]
+    },
+    {
+      "portedPath": "src/engine/shell/bash-readonly-policy-types.js",
+      "license": "Apache-2.0",
+      "modifications": "TypeScript type erasure; source behavior retained",
+      "sources": [
+        {
+          "path": "apps/zcode-cli/packages/core/src/tool/handlers/bash-readonly-policy-types.ts",
+          "sha256": "f03005bbe62e125b2969bd1c25ecc08d774d06a08019d8db62d9cb722e48d532"
+        }
+      ]
+    },
+    {
+      "portedPath": "src/engine/shell/bash-readonly-policy.js",
+      "license": "Apache-2.0",
+      "modifications": "TypeScript type erasure; source behavior retained",
+      "sources": [
+        {
+          "path": "apps/zcode-cli/packages/core/src/tool/handlers/bash-readonly-policy.ts",
+          "sha256": "d7f4b8c485b3873119ffa8b64aaad94222f7e7c4dc02cf777f56c17879372f0e"
+        }
+      ]
+    },
+    {
+      "portedPath": "src/engine/shell/bash-semantics.js",
+      "license": "Apache-2.0",
+      "modifications": "TypeScript type erasure; source behavior retained",
+      "sources": [
+        {
+          "path": "apps/zcode-cli/packages/core/src/tool/handlers/bash-semantics.ts",
+          "sha256": "49dd9cd039e6c6e7241bbb7a6ee03453fcc0348427604aa39eb23c7b6c2c2595"
+        }
+      ]
+    },
+    {
+      "portedPath": "src/engine/shell/guarded/word.js",
+      "license": "Apache-2.0",
+      "modifications": "TypeScript type erasure; source behavior retained",
+      "sources": [
+        {
+          "path": "apps/zcode-cli/packages/core/src/tool/handlers/guarded/word.ts",
+          "sha256": "4d8009c98d7e589d996892fe4df9e560de4da4b21e333c166ec60dbd6c789570"
+        }
+      ]
+    }
+  ]
+}

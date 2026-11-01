@@ -1,0 +1,84 @@
+{
+  "name": "@local/zcode-memory-dsh",
+  "version": "0.1.0",
+  "description": "Unified Markdown memory for DSH with native tools, guarded extraction and the retained settings viewer",
+  "type": "module",
+  "license": "Apache-2.0",
+  "main": "./src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./client": "./dist/client.js",
+    "./package.json": "./package.json",
+    "./cordis.patch.yml": "./cordis.patch.yml"
+  },
+  "files": [
+    "src",
+    "dist",
+    "assets",
+    "README.md",
+    "LICENSE",
+    "NOTICE.md",
+    "UPSTREAM-NOTICE.md",
+    "cordis.patch.yml",
+    "!assets/port-upstream.mjs",
+    "!src/engine/import-shell.mjs",
+    "shared.cjs",
+    "unified",
+    "UNIFIED-NOTICE.md",
+    "UNIFIED-README.md",
+    "sources.json"
+  ],
+  "engines": {
+    "node": ">=24.0.0",
+    "dsh": "0.2.1-rc.2"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-slots",
+        "@deepseek-ai/dsh-client-connection",
+        "@deepseek-ai/dsh-client-ui-plugin-manager",
+        "@deepseek-ai/dsh-client-ui-settings",
+        "@deepseek-ai/dsh-client-ui-settings-general",
+        "@deepseek-ai/dsh-client-locale"
+      ]
+    }
+  },
+  "scripts": {
+    "test": "node scripts/test.mjs",
+    "build": "node scripts/build.mjs",
+    "check": "node scripts/check.mjs",
+    "test:integration": "node scripts/integration-launcher.mjs",
+    "test:activation": "node scripts/integration-launcher.mjs --activation-only"
+  },
+  "dependencies": {
+    "yaml": "2.9.0",
+    "marked": "18.0.11"
+  },
+  "devDependencies": {
+    "esbuild": "0.25.12",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
+    "jsdom": "26.1.0"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "^4.0.0",
+    "@deepseek-ai/schemastery": "^3.18.0",
+    "@deepseek-ai/dsh-agent": "0.2.1-rc.2",
+    "@deepseek-ai/dsh-llm": "0.2.1-rc.2",
+    "@deepseek-ai/dsh-tools": "0.2.1-rc.2",
+    "@deepseek-ai/dsh-home-paths": "0.2.1-rc.2",
+    "@deepseek-ai/dsh-session": "0.2.1-rc.2"
+  },
+  "optionalDependencies": {
+    "unbash": "4.0.1"
+  },
+  "bundledDependencies": [
+    "yaml",
+    "marked"
+  ]
+}

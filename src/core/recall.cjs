@@ -1,0 +1,19 @@
+'use strict';
+const {tokens,retrievalTokens,estimateTokens,truncate}=require('./text.cjs');const {fail,abort}=require('./paths.cjs');const {semanticRank,active,factKey}=require('./semantic-recall.cjs');
+function rank(facts,query,{now=Date.now(),scopeBoost=1}={}) {
+  const docs=facts.filter(active);const terms=[...new Set(retrievalTokens(query))];const vectors=docs.map(f=>{if(f.search)return f.search;const words=tokens(`${f.data.name??''} ${f.data.description??''} ${f.body??''}`);return {length:words.length,counts:Object.fromEntries([...new Set(words)].map(w=>[w,words.filter(x=>x===w).length]))};});const avg=vectors.reduce((n,v)=>n+v.length,0)/Math.max(1,docs.length);const df=new Map(terms.map(t=>[t,vectors.filter(v=>Object.hasOwn(v.counts,t)).length]));
+  return docs.map((fact,i)=>{const vector=vectors[i];let bm25=0;for(const t of terms){const tf=vector.counts[t]??0;if(!tf)continue;const idf=Math.log(1+(docs.length-df.get(t)+0.5)/(df.get(t)+0.5));bm25+=idf*tf*2.2/(tf+1.2*(0.25+0.75*vector.length/Math.max(1,avg)));}const updated=Date.parse(fact.data.unified?.updatedAt??new Date(now).toISOString());const age=Math.max(0,now-(Number.isFinite(updated)?updated:now))/86400000;const weight=Number(fact.data.unified?.importance??0.5);const importance=Number.isFinite(weight)?Math.max(0,Math.min(1,weight)):0.5;const recency=1/(1+age/30);const relevance=terms.length?bm25:0;return {...fact,score:relevance*scopeBoost+importance*0.25+recency*0.15,relevance,importance,recency};}).filter(f=>terms.length>0&&f.relevance>0).sort((a,b)=>b.score-a.score||a.path.localeCompare(b.path));
+}
+function sourceSummary(fact){
+  const source=fact.data.unified;if(!source)return {legacy:true};
+  return {host:source.host??'unknown',scope:source.scope??'unknown',updatedAt:source.updatedAt??null,sourceCount:source.sources?.length??0,originSessionId:fact.data.metadata?.originSessionId??null};
+}
+async function recall(store,query,options={}) {
+  abort(options.signal);const snap=options.catalog??await store.catalog(options);const settings={...snap.settings.recall,...options};
+  for(const k of ['maxChars','maxItems','maxTokens'])if(!Number.isInteger(settings[k])||settings[k]<0)throw fail('INVALID_BUDGET',`${k} must be a nonnegative integer`);
+  const local=rank(snap.facts,query,options);const {ranked,diagnostics}=await semanticRank(store,snap,String(query),local,options,settings);const selected=[];let chars=0,tokenCount=0;
+  for(const fact of ranked){abort(options.signal);if(selected.length>=settings.maxItems)break;const header=`[${fact.type}] ${fact.path}\n`;const available=Math.min(settings.maxChars-chars,Math.floor((settings.maxTokens-tokenCount)*3.5));if(available<=header.length)break;let full,cached=options.bodyCache?.get(factKey(fact));try{full=cached?{body:cached.body,revision:cached.revision}:await(fact._store??store).read(fact.path,options);}catch(e){if(['NOT_FOUND','FILE_CHANGED','EXTERNAL_CHANGE','ENOENT','UNSAFE_PATH','SENSITIVE_CONTENT','INVALID_FRONTMATTER'].includes(e.code))continue;throw e;}if(full.revision!==fact.revision)continue;let body=truncate(full.body,available-header.length);while(body&&(body.length+header.length>settings.maxChars-chars||estimateTokens(header+body)>settings.maxTokens-tokenCount))body=truncate(body,Math.max(0,Array.from(body).length-4));const text=header+body;if(!body)continue;const n=estimateTokens(text);selected.push({path:fact.path,name:fact.data.name,type:fact.type,score:fact.score,body,partial:!!cached?.partial||body!==full.body,revision:fact.revision,source:sourceSummary(fact)});chars+=text.length;tokenCount+=n;}
+  if(options.record!==false&&!store.readOnly&&selected.length)await store.recordStats({recalled:selected.length},options);
+  abort(options.signal);return {items:selected,usage:{chars,tokens:tokenCount,items:selected.length},available:ranked.length,diagnostics,issues:snap.issues??[]};
+}
+module.exports={rank,recall};
